@@ -5,10 +5,10 @@ Vue.component( 'todo-item' , {
     <label v-bind:class="[todo.isCompleted ? 'completed' : '']">{{ todo.text }}</label>
     <input type="input" v-if="todo.isEdit" v-on:keyup.enter="updateTodo($event, todo)" />
     <button v-on:click="editTodo(todo)" v-if="!todo.isEdit">edit</button>
-    <button v-on:click="removetodo(index)">x</button>
+    <button v-on:click="removeTodo(index)">x</button>
   </li>`,
   methods: {
-    removetodo: function(index) {
+    removeTodo: function(index) {
       this.$emit('removetodo');
     },
     updateTodo: function($event, todo) {

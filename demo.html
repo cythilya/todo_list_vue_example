@@ -11,7 +11,7 @@ li, .mb { margin-bottom: 10px; }
 <body>
 <div id="app">
   <ul>
-    <todo-item v-for="(todo, key) in todos" :todo="todo" :index="key" :filter="filter" @removetodo="deletetodo(key)"></todo-item>
+    <todo-item v-for="(todo, key) in todos" :todo="todo" :index="key" :filter="filter" @removeTodo="deletetodo(key)"></todo-item>
   </ul>
   <div class="mb">
     <input type="text" v-model="newTodoText" v-on:keyup.enter="addTodo" placeholder="Add a new todo" />
