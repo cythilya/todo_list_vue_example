@@ -1,0 +1,28 @@
+﻿<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Todo List: Vue.js Example</title>
+  <link rel="stylesheet" type="text/css" href="css/reset-font-min.css">
+  <link rel="stylesheet" type="text/css" href="css/clearfix.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+<div id="app" class="todos">
+  <h1 class="todo-heading">Todo List: Vue.js Example</h1>
+  <div class="add-new-item">
+    <input type="text" v-model="newTodoText" v-on:keyup.enter="addTodo" placeholder="加入一個新工作" class="new-item" />
+  </div>
+  <ul class="todo-list">
+    <todo-item v-for="(todo, key) in todos" :todo="todo" :index="key" :filter="filter" @removeTodo="deletetodo(key)" class="todo-item"></todo-item>
+  </ul>
+  <div class="control">
+    <a v-on:click="showAll" class="btn">全部 ({{ allCount }})</a>
+    <a v-on:click="showCompleted" class="btn">已完成 ({{ completedCount }})</a>
+    <a v-on:click="showCompleted" class="btn">未完成 ({{ incompletedCount }})</a>
+  </div>
+</div>
+<script src="lib/vue.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>

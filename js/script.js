@@ -3,16 +3,18 @@ Vue.component( 'todo-item' , {
   template:`<li v-if="showCompletedTodo(todo.isCompleted, filter)">
     <input type="checkbox" v-on:change="updateStatus(todo)" :checked="todo.isCompleted">
     <label v-bind:class="[todo.isCompleted ? 'completed' : '']">{{ todo.text }}</label>
-    <input type="input" v-if="todo.isEdit" v-on:keyup.enter="updateTodo($event, todo)" />
-    <button v-on:click="editTodo(todo)" v-if="!todo.isEdit">edit</button>
-    <button v-on:click="removeTodo(index)">x</button>
+    <input type="text" v-if="todo.isEdit" v-on:keyup.enter="updateTodo($event, todo)" />
+    <a v-on:click="editTodo(todo)" v-if="!todo.isEdit" class="btn">編輯</a>
+    <a v-on:click="removeTodo(index)" class="btn">刪除</a>
   </li>`,
   methods: {
     removeTodo: function(index) {
       this.$emit('removetodo');
     },
     updateTodo: function($event, todo) {
-      todo.text = $event.target.value;
+      if($event.target.value) {
+        todo.text = $event.target.value;
+      }
       todo.isEdit = !todo.isEdit;
     },
     updateStatus: function(todo) {
@@ -32,23 +34,50 @@ var app = new Vue({
   data: {
     todos: [
       {
-        text: 'Buy a book',
+        text: '買一本好書',
         isCompleted: false,
         isEdit: false
       },
       {
-        text: 'Call Mary',
+        text: '打電話給小明',
         isCompleted: true,
         isEdit: false
       },
       {
-        text: 'Write an article',
+        text: '寫一篇文章',
         isCompleted: false,
         isEdit: false
       }
     ],
     newTodoText: '',
     filter: 'show_all'
+  },
+  computed: {
+    allCount: function() {
+      return this.todos.length;
+    },
+    completedCount: function() {
+      var count = 0;
+
+      for(var i = 0; i < this.todos.length; i++) {
+        if(this.todos[i].isCompleted) {
+          count++;
+        }
+      }
+
+      return count;
+    },
+    incompletedCount: function() {
+      var count = 0;
+
+      for(var i = 0; i < this.todos.length; i++) {
+        if(!this.todos[i].isCompleted) {
+          count++;
+        }
+      }
+
+      return count;
+    }
   },
   methods: {
     addTodo: function() {
