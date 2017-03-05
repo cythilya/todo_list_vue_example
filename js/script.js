@@ -95,7 +95,7 @@ var app = new Vue({
         isCompleted: false,
         isEdit: false
       });
-      this.newTodoText = ''
+      this.newTodoText = '';
     },
     deletetodo: function(index) {
       this.todos.splice(index, 1);
