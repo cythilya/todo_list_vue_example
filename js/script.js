@@ -1,6 +1,6 @@
 Vue.component( 'todo-item' , {
   props: ['todo', 'index', 'filter'],
-  template:`<li v-if="showCompletedTodo(todo.isCompleted, filter)">
+  template:`<li>
     <input type="checkbox" v-on:change="updateStatus(todo)" :checked="todo.isCompleted">
     <label v-bind:class="[todo.isCompleted ? 'completed' : '']">{{ todo.text }}</label>
     <input type="text" v-if="todo.isEdit" v-on:keyup.enter="updateTodo($event, todo)" />
@@ -78,13 +78,13 @@ var app = new Vue({
 
       return count;
     },
-    todoList: function() {
+    list: function() {
       if(this.filter === 'show_all') {
-        //get all todos
-      } else if(this.filter === 'show_completed') {
-        //get completed todos
-      } else if(this.filter === 'show_incomplete') {
-        //get incomplete todos
+        return this.todos;
+      } else if (this.filter === 'show_completed') {
+        return this._getTodos(true);
+      } else { //show_incomplete
+        return this._getTodos(false);
       }
     }
   },
@@ -100,14 +100,25 @@ var app = new Vue({
     deletetodo: function(index) {
       this.todos.splice(index, 1);
     },
-    isShowForCompletedFilter: function(todo) {
-      return !(!todo.isCompleted && this.filter === 'show_completed');
-    },
     showAll: function() {
       this.filter = 'show_all';
     },
     showCompleted: function() {
       this.filter = 'show_completed';
+    },
+    showIncomplete: function() {
+      this.filter = 'show_incomplete';
+    },
+    _getTodos: function(isCompleted) {
+      var list = [];
+
+      for(var i = 0; i < this.todos.length; i++) {
+        if(this.todos[i].isCompleted === isCompleted) {
+          list.push(this.todos[i]);
+        }
+      }
+
+      return list;
     }
   }
 });
