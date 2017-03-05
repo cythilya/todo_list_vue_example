@@ -1,49 +1,55 @@
 @space: 15px;
 
 html {
-	background: #41D2F2;
-	font-family: '微軟正黑體', sans-serif;
+  background: #41D2F2;
+  font-family: '微軟正黑體', sans-serif;
 }
 
 .todos {
-	background: #fff;
-	border-radius: 10px;
-	width: 600px;
-	margin: @space auto;
-	padding: @space;
+  background: #fff;
+  border-radius: 10px;
+  width: 600px;
+  margin: @space auto;
+  padding: @space;
 }
 
 .todo-heading {
-	font-size: 30px;
-	margin: 0 0 @space 0;
+  font-size: 30px;
+  margin: 0 0 @space 0;
 }
 
 .add-new-item {
-	.mb;
-	font-size: 15px;
+  .mb;
+  font-size: 15px;
 }
 
 .todo-list {
-	font-size: 15px;
-	color: #525252;
+  font-size: 15px;
+  color: #525252;
 }
 
 .todo-item {
+  .mb;
+}
+
+.msg {
 	.mb;
+  font-size: 15px;
+  color: #525252;
 }
 
 .btn {
-	border: 1px solid #ccc;
-	border-radius: 10px;
-	cursor: pointer;
-	display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  cursor: pointer;
+  display: inline-block;
   margin: 0px 5px;
-	padding: 5px 10px;
-	min-width: 30px;
+  padding: 5px 10px;
+  min-width: 30px;
   text-align: center;
   &:hover, &.active {
-  	background: #ccc;
-  	color: #fff;
+    background: #ccc;
+    color: #fff;
   }
 }
 
@@ -55,18 +61,18 @@ html {
 }
 
 .mb {
-	margin: 0 0 @space 0;
+  margin: 0 0 @space 0;
 }
 
 .completed {
-	text-decoration: line-through;
+  text-decoration: line-through;
 }
 
 input[type=text] {
-	border: 1px solid #ddd;
-	border-radius: 10px;
-	color: #525252;
-	line-height: 1.2;
-	height: 22px;
-	padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  color: #525252;
+  line-height: 1.2;
+  height: 22px;
+  padding: 5px;
 }
