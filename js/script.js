@@ -67,7 +67,7 @@ var app = new Vue({
 
       return count;
     },
-    incompletedCount: function() {
+    incompleteCount: function() {
       var count = 0;
 
       for(var i = 0; i < this.todos.length; i++) {
@@ -77,6 +77,15 @@ var app = new Vue({
       }
 
       return count;
+    },
+    todoList: function() {
+      if(this.filter === 'show_all') {
+        //get all todos
+      } else if(this.filter === 'show_completed') {
+        //get completed todos
+      } else if(this.filter === 'show_incomplete') {
+        //get incomplete todos
+      }
     }
   },
   methods: {
