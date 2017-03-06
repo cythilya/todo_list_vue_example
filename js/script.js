@@ -2,8 +2,8 @@ Vue.component( 'todo-item' , {
   props: ['todo', 'index', 'filter'],
   template:`<li>
     <input type="checkbox" v-on:change="updateStatus(todo)" :checked="todo.isCompleted">
-    <label v-bind:class="[todo.isCompleted ? 'completed' : '']">{{ todo.text }}</label>
-    <input type="text" v-if="todo.isEdit" v-on:keyup.enter="updateTodo($event, todo)" />
+    <label v-if="!todo.isEdit" v-bind:class="[todo.isCompleted ? 'completed' : '']">{{ todo.text }}</label>
+    <input type="text" v-if="todo.isEdit" v-on:keyup.enter="updateTodo($event, todo)" v-model="todo.text" />
     <a v-on:click="editTodo(todo)" v-if="!todo.isEdit" class="btn">編輯</a>
     <a v-on:click="removeTodo(index)" class="btn">刪除</a>
   </li>`,
