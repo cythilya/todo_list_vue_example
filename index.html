@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html>
 <head>
   <meta charset="utf-8">
@@ -11,16 +11,16 @@
 <div id="app" class="todos">
   <h1 class="todo-heading">Todo List: Vue.js Example</h1>
   <div class="add-new-item">
-    <input type="text" v-model="newTodoText" v-on:keyup.enter="addTodo" placeholder="加入一個新工作" class="new-item" />
+    <input type="text" v-model="newTodoText" v-on:keyup.enter="add" placeholder="加入一個新工作" class="new-item" />
   </div>
   <ul class="todo-list" v-if="incompleteCount !== 0">
-    <todo-item v-for="(todo, key) in list" :todo="todo" :index="key" :filter="filter" @removeTodo="deletetodo(key)" class="todo-item"></todo-item>
+    <todo-item v-for="(todo, key) in list" :todo="todo" :index="key" :filter="filter" class="todo-item" @removeTodo="delete(key)"></todo-item>
   </ul>
   <div class="msg" v-if="incompleteCount === 0">恭喜完成所有的項目！</div>
   <div class="control">
-    <a v-on:click="showAll" class="btn" :class="{ active: filter === 'show_all'}">全部 ({{ allCount }})</a>
-    <a v-on:click="showCompleted" class="btn" :class="{ active: filter === 'show_completed'}">已完成 ({{ completedCount }})</a>
-    <a v-on:click="showIncomplete" class="btn" :class="{ active: filter === 'show_incomplete'}">未完成 ({{ incompleteCount }})</a>
+    <a v-on:click="setFilter('show_all')" class="btn" :class="{ active: filter === 'show_all'}">全部 ({{ allCount }})</a>
+    <a v-on:click="setFilter('show_completed')" class="btn" :class="{ active: filter === 'show_completed'}">已完成 ({{ completedCount }})</a>
+    <a v-on:click="setFilter('show_incomplete')" class="btn" :class="{ active: filter === 'show_incomplete'}">未完成 ({{ incompleteCount }})</a>
   </div>
 </div>
 <script src="lib/vue.js"></script>

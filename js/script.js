@@ -53,6 +53,15 @@ var app = new Vue({
     filter: 'show_all'
   },
   computed: {
+    list: function() {
+      if(this.filter === 'show_all') {
+        return this.todos;
+      } else if (this.filter === 'show_completed') {
+        return this._getTodos(true);
+      } else { //show_incomplete
+        return this._getTodos(false);
+      }
+    },
     allCount: function() {
       return this.todos.length;
     },
@@ -77,19 +86,10 @@ var app = new Vue({
       }
 
       return count;
-    },
-    list: function() {
-      if(this.filter === 'show_all') {
-        return this.todos;
-      } else if (this.filter === 'show_completed') {
-        return this._getTodos(true);
-      } else { //show_incomplete
-        return this._getTodos(false);
-      }
     }
   },
   methods: {
-    addTodo: function() {
+    add: function() {
       this.todos.push({
         text: this.newTodoText,
         isCompleted: false,
@@ -97,28 +97,16 @@ var app = new Vue({
       });
       this.newTodoText = '';
     },
-    deletetodo: function(index) {
+    delete: function(index) {
       this.todos.splice(index, 1);
     },
-    showAll: function() {
-      this.filter = 'show_all';
-    },
-    showCompleted: function() {
-      this.filter = 'show_completed';
-    },
-    showIncomplete: function() {
-      this.filter = 'show_incomplete';
+    setFilter: function(filter) {
+      this.filter = filter;
     },
     _getTodos: function(isCompleted) {
-      var list = [];
-
-      for(var i = 0; i < this.todos.length; i++) {
-        if(this.todos[i].isCompleted === isCompleted) {
-          list.push(this.todos[i]);
-        }
-      }
-
-      return list;
+      return this.todos.filter(function(value) {
+        return value.isCompleted === isCompleted;
+      });
     }
   }
 });
