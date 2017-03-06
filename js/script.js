@@ -66,15 +66,9 @@ var app = new Vue({
       return this.todos.length;
     },
     completedCount: function() {
-      var count = 0;
-
-      for(var i = 0; i < this.todos.length; i++) {
-        if(this.todos[i].isCompleted) {
-          count++;
-        }
-      }
-
-      return count;
+      return this.todos.filter(function(value) {
+        return value.isCompleted
+      }).length;
     },
     incompleteCount: function() {
       return this.todos.filter(function(value) {
