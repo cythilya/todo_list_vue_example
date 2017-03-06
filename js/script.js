@@ -77,15 +77,9 @@ var app = new Vue({
       return count;
     },
     incompleteCount: function() {
-      var count = 0;
-
-      for(var i = 0; i < this.todos.length; i++) {
-        if(!this.todos[i].isCompleted) {
-          count++;
-        }
-      }
-
-      return count;
+      return this.todos.filter(function(value) {
+        return !value.isCompleted
+      }).length;
     }
   },
   methods: {
