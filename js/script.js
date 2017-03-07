@@ -5,11 +5,11 @@ Vue.component( 'todo-item' , {
     <label v-if="!todo.isEdit" v-bind:class="[todo.isCompleted ? 'completed' : '']">{{ todo.text }}</label>
     <input type="text" v-if="todo.isEdit" v-on:keyup.enter="updateTodo($event, todo)" v-model="todo.text" />
     <a v-on:click="editTodo(todo)" v-if="!todo.isEdit" class="btn">編輯</a>
-    <a v-on:click="removeTodo(index)" class="btn">刪除</a>
+    <a v-on:click="remove(index)" class="btn">刪除</a>
   </li>`,
   methods: {
-    removeTodo: function(index) {
-      this.$emit('removetodo');
+    remove: function(index) {
+      this.$emit('remove');
     },
     updateTodo: function($event, todo) {
       if($event.target.value) {
@@ -85,7 +85,7 @@ var app = new Vue({
       });
       this.newTodoText = '';
     },
-    delete: function(index) {
+    del: function(index) {
       this.todos.splice(index, 1);
     },
     setFilter: function(filter) {

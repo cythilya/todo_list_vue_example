@@ -14,7 +14,7 @@
     <input type="text" v-model="newTodoText" v-on:keyup.enter="add" placeholder="加入一個新工作" class="new-item" />
   </div>
   <ul class="todo-list" v-if="incompleteCount !== 0">
-    <todo-item v-for="(todo, key) in list" :todo="todo" :index="key" :filter="filter" class="todo-item" @removeTodo="delete(key)"></todo-item>
+    <todo-item v-for="(todo, key) in list" :todo="todo" :index="key" :filter="filter" class="todo-item" v-on:remove="del(key)"></todo-item>
   </ul>
   <div class="msg" v-if="incompleteCount === 0">恭喜完成所有的項目！</div>
   <div class="control">
