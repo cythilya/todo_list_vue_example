@@ -56,6 +56,9 @@ var app = new Vue({
     filter: 'show_all'
   },
   computed: {
+    todosData: function() {
+      return JSON.stringify(this.todos);
+    },
     list: function() {
       if(this.filter === 'show_all') {
         return this.todos;
@@ -95,11 +98,8 @@ var app = new Vue({
     setFilter: function(filter) {
       this.filter = filter;
     },
-    _id: function() {
-      'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-          var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
-          return v.toString(16);
-      });
+    _uuid: function() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {var r = Math.random()*16|0,v=c=='x'?r:r&0x3|0x8;return v.toString(16);});
     },
     _getTodos: function(isCompleted) {
       return this.todos.filter(function(value) {
