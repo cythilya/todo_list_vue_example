@@ -79,6 +79,7 @@ var app = new Vue({
   methods: {
     add: function() {
       this.todos.push({
+        id: this._id(),
         text: this.newTodoText,
         isCompleted: false,
         isEdit: false
@@ -90,6 +91,12 @@ var app = new Vue({
     },
     setFilter: function(filter) {
       this.filter = filter;
+    },
+    _id: function() { //fake uuid
+      function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+      }
+      return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
     },
     _getTodos: function(isCompleted) {
       return this.todos.filter(function(value) {
