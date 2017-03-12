@@ -1,3 +1,26 @@
+function getJSON(url, callback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', url, true);
+  xhr.responseType = 'json';
+  xhr.onload = function() {
+    var status = xhr.status;
+    if (status == 200) {
+      callback(null, xhr.response);
+    } else {
+      callback(status);
+    }
+  };
+  xhr.send();
+};
+
+getJSON('http://www.json-generator.com/api/json/get/coXyYYCeRe?indent=2', function(error, result) {
+  if (error) {
+    console.log('Something went wrong: ' + error);
+  } else {
+    console.log(result);
+  }
+});
+
 Vue.component( 'todo-item' , {
   props: ['todo', 'index', 'filter'],
   template:`<li>
@@ -53,7 +76,27 @@ var app = new Vue({
       }
     ],
     newTodoText: '',
-    filter: 'show_all'
+    filter: 'show_all',
+    todosDetail: {
+      "a5436691-350c-4ed0-862e-c8abc8509a4a": {
+        "uuid": "a5436691-350c-4ed0-862e-c8abc8509a4a",
+        "text": "買一本好書",
+        "isCompleted": false,
+        "isEdit": false
+      },
+      "a98bf666-a710-43b2-81b2-60c68ec4688d": {
+        "uuid": "a98bf666-a710-43b2-81b2-60c68ec4688d",
+        "text": "打電話給小明",
+        "isCompleted": true,
+        "isEdit": false
+      },
+      "452ef417-033d-48ff-9fec-9d686c105dce": {
+        "uuid": "452ef417-033d-48ff-9fec-9d686c105dce",
+        "text": "寫一篇文章",
+        "isCompleted": false,
+        "isEdit": false
+      }
+    }
   },
   computed: {
     todosData: function() {

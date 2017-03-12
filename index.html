@@ -23,6 +23,7 @@
     <a v-on:click="setFilter('show_incomplete')" class="btn" :class="{ active: filter === 'show_incomplete'}">未完成 ({{ incompleteCount }})</a>
   </div>
   <input type="hidden" v-model="todosData">
+  <!-- <p v-for="(value, key) in todosDetail">{{ value.text }}</p> -->
 </div>
 <script src="lib/vue.js"></script>
 <script src="lib/vuex-2.2.1.js"></script>
