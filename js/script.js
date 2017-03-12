@@ -34,16 +34,19 @@ var app = new Vue({
   data: {
     todos: [
       {
+        uuid: 'a5436691-350c-4ed0-862e-c8abc8509a4a',
         text: '買一本好書',
         isCompleted: false,
         isEdit: false
       },
       {
+        uuid: 'a98bf666-a710-43b2-81b2-60c68ec4688d',
         text: '打電話給小明',
         isCompleted: true,
         isEdit: false
       },
       {
+        uuid: '452ef417-033d-48ff-9fec-9d686c105dce',
         text: '寫一篇文章',
         isCompleted: false,
         isEdit: false
@@ -79,7 +82,7 @@ var app = new Vue({
   methods: {
     add: function() {
       this.todos.push({
-        id: this._id(),
+        uuid: this._uuid(),
         text: this.newTodoText,
         isCompleted: false,
         isEdit: false
@@ -92,11 +95,11 @@ var app = new Vue({
     setFilter: function(filter) {
       this.filter = filter;
     },
-    _id: function() { //fake uuid
-      function s4() {
-        return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-      }
-      return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+    _id: function() {
+      'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+          var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+          return v.toString(16);
+      });
     },
     _getTodos: function(isCompleted) {
       return this.todos.filter(function(value) {
