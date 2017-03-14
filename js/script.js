@@ -89,7 +89,6 @@ var app = new Vue({
   methods: {
     add: function() {
       var id = this._uuid();
-
       this.todos[id] = {
         uuid: id,
         text: this.newTodoText,
