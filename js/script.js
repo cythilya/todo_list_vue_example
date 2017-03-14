@@ -1,26 +1,3 @@
-function getJSON(url, callback) {
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', url, true);
-  xhr.responseType = 'json';
-  xhr.onload = function() {
-    var status = xhr.status;
-    if (status == 200) {
-      callback(null, xhr.response);
-    } else {
-      callback(status);
-    }
-  };
-  xhr.send();
-};
-
-getJSON('http://www.json-generator.com/api/json/get/coXyYYCeRe?indent=2', function(error, result) {
-  if (error) {
-    console.log('Something went wrong: ' + error);
-  } else {
-    console.log(result);
-  }
-});
-
 Vue.component( 'todo-item' , {
   props: ['todo', 'index', 'filter'],
   template:`<li>
@@ -55,48 +32,28 @@ Vue.component( 'todo-item' , {
 var app = new Vue({
   el: '#app',
   data: {
-    todos: [
-      {
-        uuid: 'a5436691-350c-4ed0-862e-c8abc8509a4a',
-        text: '買一本好書',
-        isCompleted: false,
-        isEdit: false
-      },
-      {
-        uuid: 'a98bf666-a710-43b2-81b2-60c68ec4688d',
-        text: '打電話給小明',
-        isCompleted: true,
-        isEdit: false
-      },
-      {
-        uuid: '452ef417-033d-48ff-9fec-9d686c105dce',
-        text: '寫一篇文章',
-        isCompleted: false,
-        isEdit: false
-      }
-    ],
-    newTodoText: '',
-    filter: 'show_all',
-    todosDetail: {
+    todos: {
       "a5436691-350c-4ed0-862e-c8abc8509a4a": {
         "uuid": "a5436691-350c-4ed0-862e-c8abc8509a4a",
-        "text": "買一本好書",
+        "text": "買一本好書 a",
         "isCompleted": false,
         "isEdit": false
       },
       "a98bf666-a710-43b2-81b2-60c68ec4688d": {
         "uuid": "a98bf666-a710-43b2-81b2-60c68ec4688d",
-        "text": "打電話給小明",
+        "text": "打電話給小明 b",
         "isCompleted": true,
         "isEdit": false
       },
       "452ef417-033d-48ff-9fec-9d686c105dce": {
         "uuid": "452ef417-033d-48ff-9fec-9d686c105dce",
-        "text": "寫一篇文章",
+        "text": "寫一篇文章 c",
         "isCompleted": false,
         "isEdit": false
       }
-    }
+    },
+    newTodoText: '',
+    filter: 'show_all'
   },
   computed: {
     todosData: function() {
@@ -112,31 +69,37 @@ var app = new Vue({
       }
     },
     allCount: function() {
-      return this.todos.length;
+      return Object.keys(this.todos).length;
     },
     completedCount: function() {
-      return this.todos.filter(function(value) {
-        return value.isCompleted
+      var _this = this;
+
+      return Object.keys(this.todos).filter(function(value) {
+        return _this.todos[value].isCompleted
       }).length;
     },
     incompleteCount: function() {
-      return this.todos.filter(function(value) {
-        return !value.isCompleted
+      var _this = this;
+
+      return Object.keys(this.todos).filter(function(value) {
+        return !_this.todos[value].isCompleted
       }).length;
     }
   },
   methods: {
     add: function() {
-      this.todos.push({
-        uuid: this._uuid(),
+      var id = this._uuid();
+
+      this.todos[id] = {
+        uuid: id,
         text: this.newTodoText,
         isCompleted: false,
         isEdit: false
-      });
+      };
       this.newTodoText = '';
     },
     del: function(index) {
-      this.todos.splice(index, 1);
+      delete this.todos[index];
     },
     setFilter: function(filter) {
       this.filter = filter;
@@ -153,9 +116,15 @@ var app = new Vue({
       });
     },
     _getTodos: function(isCompleted) {
-      return this.todos.filter(function(value) {
-        return value.isCompleted === isCompleted;
-      });
+      var length = Object.keys(this.todos).length;
+      var list = {};
+
+      for(var index in this.todos) {
+        if(!this.todos[index].isCompleted === isCompleted) {
+          list[index] = this.todos[index];
+        }
+      }
+      return list;
     }
   }
 });
