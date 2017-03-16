@@ -13,10 +13,10 @@
   <div class="add-new-item">
     <input type="text" v-model="newTodoText" v-on:keyup.enter="add" placeholder="加入一個新工作" class="new-item" />
   </div>
-  <ul class="todo-list" v-if="incompleteCount !== 0">
+  <ul class="todo-list" v-if="!(incompleteCount === 0 && filter === 'show_all')">
     <todo-item v-for="(todo, key, index) in list" :todo="todo" :index="key" :filter="filter" class="todo-item" v-on:remove="del(key)"></todo-item>
   </ul>
-  <div class="msg" v-if="incompleteCount === 0">恭喜完成所有的項目！</div>
+  <div class="msg" v-if="incompleteCount === 0 && filter === 'show_all'">恭喜完成所有的項目！</div>
   <div class="control">
     <a v-on:click="setFilter('show_all')" class="btn" :class="{ active: filter === 'show_all'}">全部 ({{ allCount }})</a>
     <a v-on:click="setFilter('show_completed')" class="btn" :class="{ active: filter === 'show_completed'}">已完成 ({{ completedCount }})</a>

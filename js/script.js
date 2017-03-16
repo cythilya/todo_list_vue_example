@@ -89,16 +89,18 @@ var app = new Vue({
   methods: {
     add: function() {
       var id = this._uuid();
-      this.todos[id] = {
+
+      Vue.set( this.todos, id, {
         uuid: id,
         text: this.newTodoText,
         isCompleted: false,
         isEdit: false
-      };
+      });
+
       this.newTodoText = '';
     },
     del: function(index) {
-      delete this.todos[index];
+      Vue.delete(this.todos, index);
     },
     setFilter: function(filter) {
       this.filter = filter;
@@ -115,15 +117,19 @@ var app = new Vue({
       });
     },
     _getTodos: function(isCompleted) {
-      var length = Object.keys(this.todos).length;
       var list = {};
 
       for(var index in this.todos) {
-        if(!this.todos[index].isCompleted === isCompleted) {
-          list[index] = this.todos[index];
+        if(this.todos[index].isCompleted === isCompleted) {
+          list[index] = Object.assign({}, this.todos[index]);
         }
       }
       return list;
+    },
+    _getObjContent: function (data) {
+      return  Object.keys(data).map(function(index){
+        return data[index];
+      });
     }
   }
 });
