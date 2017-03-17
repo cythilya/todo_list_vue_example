@@ -26,30 +26,6 @@
 </div>
 <script src="lib/vue.js"></script>
 <script src="lib/vuex-2.2.1.js"></script>
-<script>
-  function getJSON(url, callback) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
-    xhr.responseType = 'json';
-    xhr.onload = function() {
-      var status = xhr.status;
-      if (status == 200) {
-        callback(null, xhr.response);
-      } else {
-        callback(status);
-      }
-    };
-    xhr.send();
-  };
-
-  getJSON('http://www.json-generator.com/api/json/get/coXyYYCeRe?indent=2', function(error, result) {
-    if (error) {
-      console.log('Something went wrong: ' + error);
-    } else {
-      //console.log(result);
-    }
-  });
-</script>
 <script src="js/script.js"></script>
 </body>
 </html>
