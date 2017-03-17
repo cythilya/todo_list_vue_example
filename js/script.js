@@ -32,26 +32,26 @@ Vue.component( 'todo-item' , {
 var app = new Vue({
   el: '#app',
   data: {
-    todos: [
-      {
-        uuid: 'a5436691-350c-4ed0-862e-c8abc8509a4a',
-        text: '買一本好書',
-        isCompleted: false,
-        isEdit: false
+    todos: {
+      "a5436691-350c-4ed0-862e-c8abc8509a4a": {
+        "uuid": "a5436691-350c-4ed0-862e-c8abc8509a4a",
+        "text": "買一本好書",
+        "isCompleted": false,
+        "isEdit": false
       },
-      {
-        uuid: 'a98bf666-a710-43b2-81b2-60c68ec4688d',
-        text: '打電話給小明',
-        isCompleted: true,
-        isEdit: false
+      "a98bf666-a710-43b2-81b2-60c68ec4688d": {
+        "uuid": "a98bf666-a710-43b2-81b2-60c68ec4688d",
+        "text": "打電話給小明",
+        "isCompleted": true,
+        "isEdit": false
       },
-      {
-        uuid: '452ef417-033d-48ff-9fec-9d686c105dce',
-        text: '寫一篇文章',
-        isCompleted: false,
-        isEdit: false
+      "452ef417-033d-48ff-9fec-9d686c105dce": {
+        "uuid": "452ef417-033d-48ff-9fec-9d686c105dce",
+        "text": "寫一篇文章",
+        "isCompleted": false,
+        "isEdit": false
       }
-    ],
+    },
     newTodoText: '',
     filter: 'show_all'
   },
@@ -69,31 +69,38 @@ var app = new Vue({
       }
     },
     allCount: function() {
-      return this.todos.length;
+      return Object.keys(this.todos).length;
     },
     completedCount: function() {
-      return this.todos.filter(function(value) {
-        return value.isCompleted
+      var _this = this;
+
+      return Object.keys(this.todos).filter(function(value) {
+        return _this.todos[value].isCompleted
       }).length;
     },
     incompleteCount: function() {
-      return this.todos.filter(function(value) {
-        return !value.isCompleted
+      var _this = this;
+
+      return Object.keys(this.todos).filter(function(value) {
+        return !_this.todos[value].isCompleted
       }).length;
     }
   },
   methods: {
     add: function() {
-      this.todos.push({
-        uuid: this._uuid(),
+      var id = this._uuid();
+
+      Vue.set(this.todos, id, {
+        uuid: id,
         text: this.newTodoText,
         isCompleted: false,
         isEdit: false
       });
+
       this.newTodoText = '';
     },
     del: function(index) {
-      this.todos.splice(index, 1);
+      Vue.delete(this.todos, index);
     },
     setFilter: function(filter) {
       this.filter = filter;
@@ -110,8 +117,18 @@ var app = new Vue({
       });
     },
     _getTodos: function(isCompleted) {
-      return this.todos.filter(function(value) {
-        return value.isCompleted === isCompleted;
+      var list = {};
+
+      for(var index in this.todos) {
+        if(this.todos[index].isCompleted === isCompleted) {
+          list[index] = this.todos[index];
+        }
+      }
+      return list;
+    },
+    _getObjContent: function (data) {
+      return  Object.keys(data).map(function(index){
+        return data[index];
       });
     }
   }
