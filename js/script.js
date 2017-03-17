@@ -90,7 +90,7 @@ var app = new Vue({
     add: function() {
       var id = this._uuid();
 
-      Vue.set( this.todos, id, {
+      Vue.set(this.todos, id, {
         uuid: id,
         text: this.newTodoText,
         isCompleted: false,
@@ -121,7 +121,7 @@ var app = new Vue({
 
       for(var index in this.todos) {
         if(this.todos[index].isCompleted === isCompleted) {
-          list[index] = Object.assign({}, this.todos[index]);
+          list[index] = this.todos[index];
         }
       }
       return list;
