@@ -2,8 +2,7 @@
   "name": "todo_list_vue_example",
   "version": "0.0.0",
   "scripts": {
-    "start": "gulp",
-    "test": "mocha"
+    "start": "gulp"
   },
   "dependencies": {
     "gulp": "^3.9.1",
@@ -13,9 +12,5 @@
     "gulp-livereload": "^3.8.1",
     "gulp-uglify": "^2.0.0",
     "gulp-util": "^3.0.7"
-  },
-  "devDependencies": {
-    "chai": "^4.1.1",
-    "mocha": "^3.5.0"
   }
 }
